@@ -1,3 +1,5 @@
+1.004004001 - 2013-05-01 - CHIP FORK
+  - remove annoying heuristic, restore predictable behavior
 1.004004 - 2012-11-12
   - fix crash in 1.004003 due to qw() list being readonly
 1.004003 - 2012-11-10
