@@ -8,6 +8,14 @@ WriteMakefile(
   NAME => 'strictures',
   VERSION_FROM => 'lib/strictures.pm',
 
+  ($] < 5.008004)
+    ? ()
+    : ( PREREQ_PM => {
+          "indirect" => 0,
+          "multidimensional" => 0,
+          "bareword::filehandles" => 0,
+        } ),
+
   META_ADD => {
     resources => {
       # r/w: p5sagit@git.shadowcat.co.uk:strictures.git
