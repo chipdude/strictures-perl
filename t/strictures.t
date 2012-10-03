@@ -1,10 +1,5 @@
 BEGIN { delete $ENV{PERL_STRICTURES_EXTRA} }
 
-# -e is sufficient here.
--e 't/smells-of-vcs/.git'
-  or mkdir('t/smells-of-vcs/.git')
-  or die "Couldn't create fake .git: $!";
-
 use Test::More qw(no_plan);
 
 our (@us, @expect);
@@ -46,11 +41,12 @@ SKIP: {
     };
   sub Foo::new { 1 }
   chdir("t/smells-of-vcs");
-  local $strictures::Smells_Like_VCS = 1;
+  local $ENV{PERL_STRICTURES_EXTRA} = 1;
   foreach my $file (qw(lib/one.pm t/one.faket)) {
     ok(!eval { require $file; 1 }, "Failed to load ${file}");
     like($@, qr{Indirect call of method}, "Failed due to indirect.pm, ok");
   }
+  $ENV{PERL_STRICTURES_EXTRA} = 0;
   ok(eval { require "other/one.pl"; 1 }, "Loaded other/one.pl ok");
   chdir("../..");
 }
